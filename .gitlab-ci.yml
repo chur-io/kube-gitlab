@@ -1,6 +1,7 @@
 stages:
 - build
 - deploy
+- cleanup
 
 before_script:
   - PROJECT=${PWD##*/}
@@ -12,6 +13,7 @@ before_script:
   - source ./build/common.sh
 
 build_job:
+  only: tags
   stage: build
   script:
     - k::build
@@ -20,3 +22,9 @@ deploy_job:
   stage: deploy
   script:
     -  k::upgrade
+
+cleanup_job:
+  stage: deploy
+  when: on_failure
+  script:
+    -  k::test-echo
