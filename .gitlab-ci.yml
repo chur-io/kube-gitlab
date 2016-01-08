@@ -13,7 +13,8 @@ before_script:
   - source ./build/common.sh
 
 build_job:
-  only: tags
+  only:
+    - tags
   stage: build
   script:
     - k::build
