@@ -1,20 +1,20 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: nginx
+  name: kube-gitlab
 spec:
   replicas: 1
   selector:
-    name: nginx
+    name: kube-gitlab
   template:
     metadata:
       labels:
-        name: nginx
-        role: tools
+        name: kube-gitlab
+        role: demo
     spec:
       containers:
-      - name: nginx
-        image: haphaxrd.io:5000/nginx:latest
+      - name: kube-gitlab
+        image: haphaxrd.io:5000/kube-gitlab:latest #override this with your own "private-docker-repo:5000"
         ports:
           - name: https
             containerPort: 443

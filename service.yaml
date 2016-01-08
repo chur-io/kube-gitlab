@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx
+  name: kube-gitlab
 spec:
   clusterIP: 10.100.13.37
   ports:
@@ -9,10 +9,12 @@ spec:
     port: 443
     protocol: TCP
     targetPort: 443
+    nodePort: 30443
   - name: http
     port: 80
     protocol: TCP
     targetPort: 80
+    nodePort: 30080
   selector:
-    name: nginx
+    name: kube-gitlab
   type: NodePort

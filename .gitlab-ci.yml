@@ -4,6 +4,7 @@ stages:
 
 before_script:
   - PROJECT=${PWD##*/}
+  # DOCKER_REPO can alternatively be setup @ gitlab variables
   - DOCKER_REPO="haphaxrd.io:5000"
   - echo $PROJECT
   - echo $CI_BUILD_ID
