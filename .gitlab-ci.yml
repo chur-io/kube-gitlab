@@ -15,17 +15,27 @@ before_script:
 build_job:
   only:
     - tags
+  tags:
+    - docker
   stage: build
   script:
     - k::build
 
 deploy_job:
+  only:
+    - tags
+  tags:
+    - kubectl
   stage: deploy
   script:
     -  k::upgrade
 
 cleanup_job:
-  stage: deploy
+  only:
+    - tags
+  tags:
+    - kubectl
+  stage: cleanup
   when: on_failure
   script:
     -  k::test-echo

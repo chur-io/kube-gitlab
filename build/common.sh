@@ -52,7 +52,7 @@ function k::upgrade {
   if k::check-exists $RCFILENAME
   then
   echo "$RCFILENAME already exists"
-  ~/google-cloud-sdk/bin/kubectl rolling-update $PROJECT --image='$DOCKER_REPO/'$PROJECT:CI_BUILD_TAG
+  ~/google-cloud-sdk/bin/kubectl rolling-update $PROJECT --image='$DOCKER_REPO/'$PROJECT:$CI_BUILD_TAG
   else ~/google-cloud-sdk/bin/kubectl create -f $RCFILENAME
   fi
   if [ -f ./$SERVICEFILENAME ]; then
