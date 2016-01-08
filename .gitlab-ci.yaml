@@ -4,7 +4,6 @@ stages:
 
 before_script:
   - PROJECT=${PWD##*/}
-  - DOCKER_REPO="haphaxrd.io:5000"
   - echo $PROJECT
   - echo $CI_BUILD_ID
   - source ./build/common.sh
@@ -12,7 +11,10 @@ before_script:
 build_job:
   stage: build
   script:
-    - k::build
+    - docker build -t haphaxrd.io:5000/$PROJECT .
+    - ID="$(docker images | grep 'haphaxrd.io:5000/'$PROJECT | head -n 1 | awk '{print $3}')"
+    - docker tag $ID haphaxrd.io:5000/$PROJECT:$CI_BUILD_ID
+    - docker push haphaxrd.io:5000/$PROJECT
 
 deploy_job:
   stage: deploy
