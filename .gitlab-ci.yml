@@ -8,6 +8,7 @@ before_script:
   - DOCKER_REPO="haphaxrd.io:5000"
   - echo $PROJECT
   - echo $CI_BUILD_ID
+  - echo $CI_BUILD_TAG
   - source ./build/common.sh
 
 build_job:
