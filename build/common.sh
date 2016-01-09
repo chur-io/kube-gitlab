@@ -68,6 +68,6 @@ function k::upgrade {
  }
 
  function k::delete {
-  LAST_DEPLOYED_RC="~/google-cloud-sdk/bin/kubectl get rc | grep $PROJECT:$CI_BUILD_TAG | /usr/bin/tail -n 1 | /usr/bin/awk '{print $1}'"
+  LAST_DEPLOYED_RC="$(~/google-cloud-sdk/bin/kubectl get rc | grep $PROJECT:$CI_BUILD_TAG | /usr/bin/tail -n 1 | /usr/bin/awk '{print $1}')"
   ~/google-cloud-sdk/bin/kubectl delete rc $LAST_DEPLOYED_RC
  }
