@@ -47,15 +47,15 @@ function k::override {
 # create if not exists, upgrade if exists
 function k::upgrade {
   k::get-name
-  RCFILENAME=rc.yaml
-  SERVICEFILENAME=service.yaml
-  if k::check-exists $RCFILENAME
+  RC_FILENAME=rc.yaml
+  SERVICE_FILENAME=service.yaml
+  if k::check-exists $RC_FILENAME
   then
-  echo "$RCFILENAME already exists"
-  ~/google-cloud-sdk/bin/kubectl rolling-update $PROJECT --image='$DOCKER_REPO/'$PROJECT:$CI_BUILD_TAG
-  else ~/google-cloud-sdk/bin/kubectl create -f $RCFILENAME
+  echo "$RC_FILENAME already exists"
+  ~/google-cloud-sdk/bin/kubectl rolling-update $PROJECT --image=$DOCKER_REPO/$PROJECT:$CI_BUILD_TAG
+  else ~/google-cloud-sdk/bin/kubectl create -f $RC_FILENAME
   fi
-  if [ -f ./$SERVICEFILENAME ]; then
+  if [ -f ./$SERVICE_FILENAME ]; then
     k::override service
   fi
  }
@@ -65,4 +65,9 @@ function k::upgrade {
   ID="$(/usr/bin/docker images | grep $DOCKER_REPO'/'$PROJECT | head -n 1 | awk '{print $3}')"
   /usr/bin/docker tag $ID $DOCKER_REPO/$PROJECT:$CI_BUILD_TAG
   /usr/bin/docker push $DOCKER_REPO/$PROJECT
+ }
+
+ function k::delete {
+  LAST_DEPLOYED_RC="~/google-cloud-sdk/bin/kubectl get rc | grep $PROJECT:$CI_BUILD_TAG | tail -n 1 | awk '{print $1}'"
+  ~/google-cloud-sdk/bin/kubectl delete rc $LAST_DEPLOYED_RC
  }

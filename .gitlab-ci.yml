@@ -38,4 +38,4 @@ cleanup_job:
   stage: cleanup
   when: on_failure
   script:
-    -  k::test-echo
+    -  k::delete
