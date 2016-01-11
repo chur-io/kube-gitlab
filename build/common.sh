@@ -5,7 +5,7 @@ function k::test-echo {
 }
 
 function k::get-name {
-  PROJECT=${PWD##*/}
+  PROJECT=${PWD##*/} #override here is project name is not the same as repo name
 }
 
 function k::check-exists {
@@ -22,7 +22,6 @@ function k::create {
     echo "Internal error. TYPE not specified in k::create." 1>&2
     return 2
   }
-  k::get-name
   FILENAME=$1.yaml
   if k::check-exists $FILENAME
   then echo "$FILENAME already exists"
@@ -36,7 +35,6 @@ function k::override {
     echo "Internal error. TYPE not specified in k::override." 1>&2
     return 2
   }
-  k::get-name
   FILENAME=$1.yaml
   if k::check-exists $FILENAME
   then ~/google-cloud-sdk/bin/kubectl delete -f $FILENAME
@@ -46,7 +44,6 @@ function k::override {
 
 # create if not exists, upgrade if exists
 function k::upgrade {
-  k::get-name
   RC_FILENAME=rc.yaml
   SERVICE_FILENAME=service.yaml
   if k::check-exists $RC_FILENAME
