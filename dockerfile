@@ -10,7 +10,7 @@ RUN cd /tmp && npm install
 RUN cd /tmp && bower install --allow-root
 RUN cd /tmp && ls
 RUN cp -a /tmp/node_modules /app/
-RUN cp -a /tmp/vendor /app/
+RUN cp -a /tmp/bower_components /app/
 
 ADD . /app
 RUN grunt
