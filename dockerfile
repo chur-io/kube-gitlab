@@ -8,6 +8,7 @@ ADD package.json /tmp/package.json
 ADD bower.json /tmp/bower.json
 RUN cd /tmp && npm install
 RUN cd /tmp && bower install --allow-root
+RUN cd /tmp && ls
 RUN cp -a /tmp/node_modules /app/
 RUN cp -a /tmp/vendor /app/
 
