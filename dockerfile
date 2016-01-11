@@ -14,9 +14,7 @@ RUN mv /app/bower_components /app/vendor
 
 ADD . /app
 RUN grunt compile
-RUN ls
-RUN ls /app
-COPY bin /usr/share/nginx/html
+RUN cp -a /app/bin /usr/share/nginx/html
 
 CMD nginx -g "daemon off;"
 
