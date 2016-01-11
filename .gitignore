@@ -1,0 +1,7 @@
+*.sw*
+*~
+dist/
+bin/
+node_modules/
+vendor/
+!vendor/placholders/
