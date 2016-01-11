@@ -9,7 +9,7 @@ ADD bower.json /tmp/bower.json
 RUN cd /tmp && npm install
 RUN cd /tmp && bower install --allow-root
 RUN cp -a /tmp/node_modules /app/
-RUN cp -a /tmp/bower_components /app/
+RUN cp -a /tmp/vendor /app/
 
 ADD . /app
 RUN grunt
