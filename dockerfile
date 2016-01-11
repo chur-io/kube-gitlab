@@ -16,6 +16,6 @@ ADD . /app
 RUN grunt compile
 RUN cp -a /app/bin /usr/share/nginx/html
 
-CMD nginx -g "daemon off;"
+CMD []
 
 EXPOSE 80
